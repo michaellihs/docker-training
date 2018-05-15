@@ -156,37 +156,11 @@ Multi-Stage builds
      ```
 
 
+Docker Registry
+===============
 
-Docker Commands Cheat Sheet
-===========================
-
-`docker container`
-------------------
-
-* `start <ID>` starts container with given `ID`
-* `ls -l` list last container to have been created
-* `ls -a --filter "exited=0"` list all containers that exited with exit code `0`
-* `attach <CONTAINER ID>` attach a terminal to a containers PID 1
-  * exiting with `CTRL + C` will **kill the container**
-  * exiting with `CTRL + P` and `CTRL + Q` will keep the container running
-  * for checking logs, user `docker container logs` instead
-* `logs --tail <LINES> <container ID>` shows last `LINES` lines of logs of container with `container ID`
-* `inspect --format "{{json .Config}}" <container ID> | jq` pipe `.Config` section to `jq` in JSON format
-* chaining of commands `docker container rm -f $(docker container ls -l -q)` deletes the last created container
-* `docker container diff $(docker container ls -l -q)` diff changes made to a container (in comparison to a underlying image)
-* `docker container commit <container ID> <image name>:<version>` - create a new image from a given container
-
-
-`docker image`
---------------
-
-* `ls` list (locally) available Docker images
-* `build -t <image name> <path to Dockerfile>` build image from given Dockerfile and tag it with `image name`
-* `cat Dockerfile | docker image build -t myimage -f - .` build image from Dockerfile piped to STDIN
-* `history <image id>`inspect build cache history of an image
-* `build --squash` merge all image layers into a single layer
-* `tag <old tag> <new tag>` tag an already existing image
-  * tagging for upload to registry `[[registry FQDN/]username/]image_name:tag`
+* where to put the Root CA (of the proxy)?
+  * keystore of OS should be sufficient
 
 
 Dockerfile
@@ -244,10 +218,100 @@ Dockerfile
 * `ENV` is for runtime (environment variable)
 * `ARG` is for build time (required during build)
 
+
+Volumes
+=======
+
+* persist data beyond the container lifecycle
+* provide R/W path separate from the layered filesystem
+  * bypass the copy-on-write filesystem
+* can be defined in `Dockerfile`
+  * only volume inside the container can be specified
+  * cannot map volumes on host system
+* when starting a container with a mounted volume and creating an image from it, the mountpoint is captured in the image, but the files inside the mounted volume are not captured
+
+
+Networking
+==========
+
+* containers are never visible in the public network of the host
+* `docker0` is a linux bridge that
+  * acts as a switch so that multiple containers can communicate with each other
+  * acts as a router so that the container can access internet
+* custom bridges can be created
+  * custom bridges can resolve DNS names (which equals the container name) to their IP addresses
+* networking tools for bridges:
+
+   ```
+   yum install bridge-utils
+   brctl show docker0
+   ```
+
+
+Docker Commands Cheat Sheet
+===========================
+
+`docker container`
+------------------
+
+* `start <ID>` starts container with given `ID`
+* `ls -l` list last container to have been created
+* `ls -a --filter "exited=0"` list all containers that exited with exit code `0`
+* `attach <CONTAINER ID>` attach a terminal to a containers PID 1
+  * exiting with `CTRL + C` will **kill the container**
+  * exiting with `CTRL + P` and `CTRL + Q` will keep the container running
+  * for checking logs, user `docker container logs` instead
+* `logs --tail <LINES> <container ID>` shows last `LINES` lines of logs of container with `container ID`
+* `inspect --format "{{json .Config}}" <container ID> | jq` pipe `.Config` section to `jq` in JSON format
+* chaining of commands `docker container rm -f $(docker container ls -l -q)` deletes the last created container
+* `docker container diff $(docker container ls -l -q)` diff changes made to a container (in comparison to a underlying image)
+* `docker container commit <container ID> <image name>:<version>` - create a new image from a given container
+
+
+`docker image`
+--------------
+
+* `ls` list (locally) available Docker images
+* `build -t <image name> <path to Dockerfile>` build image from given Dockerfile and tag it with `image name`
+* `cat Dockerfile | docker image build -t myimage -f - .` build image from Dockerfile piped to STDIN
+* `history <image id>`inspect build cache history of an image
+* `build --squash` merge all image layers into a single layer
+* `tag <old tag> <new tag>` tag an already existing image
+  * tagging for upload to registry `[[registry FQDN/]username/]image_name:tag`
+
+
+`docker volume`
+---------------
+
+* `create --driver <volume driver> <volume name>` creates a volume with given name and driver
+* mount host directories with `docker run -v [host path]:[container path]:[rw|ro]`
+  * e.g. for mounting source code into the container in dev environments
+* `ls` show available volumes
+* `inspect <volume id>` shows details about the volume
+* `rm <volume id>` remove volume
+
+
+`docker network`
+----------------
+
+* `ls` show networks
+
+   ```
+   NETWORK ID          NAME                DRIVER              SCOPE
+   5aefee28b6d7        bridge              bridge              local
+   cf9e4d2da99e        host                host                local
+   fcb9953c4d29        none                null                local
+   ```
+
+* `inspect <network name>` details about given network
+* `create --driver bridge my_bridge` creates a new custom bridge
+
+
 Resources
 =========
 
 * [Go text/template package](https://golang.org/pkg/text/template/)
 * [Container Tutorial](https://github.com/jpetazzo/container.training)
 * [Code Golf](https://codegolf.stackexchange.com/questions)
+* [Best Practices for Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
