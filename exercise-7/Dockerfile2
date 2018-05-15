@@ -1,0 +1,4 @@
+FROM myimage:6.0
+
+CMD ["8.8.8.8"]
+
