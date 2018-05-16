@@ -20,3 +20,11 @@ docker-compose ps
 cd workspace/exercise-14/orchestration-workshop/dockercoins
 docker-compose ps
 docker-compose logs
+docker-compose logs --tail 10 --follow
+
+docker-compose scale worker=2
+docker-compose ps
+docker-compose scale worker=10
+apt-get install -y httping
+httping -c 10 localhost:8001
+httping -c 10 localhost:8002
