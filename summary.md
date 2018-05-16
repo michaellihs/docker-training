@@ -383,6 +383,7 @@ Docker Commands Cheat Sheet
 * `port` shows port mappings of containers
 * `run -p <host-port>:<container-port>` maps `container-port` inside the container to `host-port` on the host machine
 * `run -P` map all ports mentioned in the `Dockerfile`'s `EXPOSE` directive
+* `prune` remove all stopped containers
 
 
 `docker image`
@@ -526,6 +527,23 @@ Docker Commands Cheat Sheet
 * `apply -n kube-system -f ...` install weave overlay network
 
 
+`docker secret`
+---------------
+
+* `create <secret name> <path to file with password>` create a secret
+* `echo 'abc1234' | docker secret create <secret name> -`
+* `ls` list secrets
+* `inspect <secret name>` get secret metadata
+* `rm <secret name>` delete a secret
+
+
+`docker system`
+---------------
+
+* `df` how much memory does Docker use
+* `prune` reclaim all reclaimable space
+* `events` start observing events in Docker
+
 
 Tools
 =====
@@ -546,4 +564,5 @@ Resources
 * [Docker Training repositories](https://github.com/docker-training)
 * [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
 * [BORG & Kubernetes](https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/)
+* [Managing config with Docker](https://docs.docker.com/engine/swarm/configs/)
 
