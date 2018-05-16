@@ -1,0 +1,36 @@
+version: "3.1"
+
+services:
+  rng:
+    image: michaellihs/dockercoins_rng:1.0
+    networks:
+    - dockercoins
+    ports:
+    - "8001:80"
+
+  hasher:
+    image: michaellihs/dockercoins_hasher:1.0
+    networks:
+    - dockercoins
+    ports:
+    - "8002:80"
+
+  webui:
+    image: michaellihs/dockercoins_webui:1.0
+    networks:
+    - dockercoins
+    ports:
+    - "8000:80"
+
+  redis:
+    image: redis
+    networks:
+    - dockercoins
+
+  worker:
+    image: michaellihs/dockercoins_worker:1.0
+    networks:
+    - dockercoins
+
+networks:
+    dockercoins:
