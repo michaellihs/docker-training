@@ -1,0 +1,27 @@
+version: "3.1"
+
+services:
+  database:
+    image: michaellihs/mydb:latest
+    networks:
+    - my_app
+    environment:
+    - POSTGRES_USER=gordonuser
+    - POSTGRES_DB=ddev
+
+  api:
+    image: michaellihs/myapi:latest
+    networks:
+    - my_app
+    ports:
+    - "8081:8080"
+
+  frontend:
+    image: michaellihs/myfrontend:latest
+    networks:
+    - my_app
+    ports:
+    - "3000:3000"
+
+networks:
+  my_app:
