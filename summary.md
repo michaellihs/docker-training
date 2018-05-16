@@ -24,11 +24,23 @@ Docker Training 15.5.2018
     - [`ENV` and `ARG`](#env-and-arg)
 - [Volumes](#volumes)
 - [Networking](#networking)
+    - [Networking Security](#networking-security)
+- [Docker Compose](#docker-compose)
+- [Docker Swarm](#docker-swarm)
+- [Kubernetes](#kubernetes)
+    - [Setup Kubernetes](#setup-kubernetes)
 - [Docker Commands Cheat Sheet](#docker-commands-cheat-sheet)
     - [`docker container`](#docker-container)
     - [`docker image`](#docker-image)
     - [`docker volume`](#docker-volume)
     - [`docker network`](#docker-network)
+    - [`docker-compose`](#docker-compose)
+    - [`docker swarm`](#docker-swarm)
+    - [`docker service`](#docker-service)
+    - [`docker node`](#docker-node)
+    - [`kubeadm`](#kubeadm)
+    - [`kubectl`](#kubectl)
+- [Tools](#tools)
 - [Resources](#resources)
 
 
@@ -307,6 +319,47 @@ Kubernetes
 * Data & Control
   * BYO networking
   * Cluster DNS
+
+
+Setup Kubernetes
+----------------
+
+* `kubeadm init` initialize Kubernetes cluster / manager
+* create config folder in home dir
+
+   ```
+   mkdir -p $HOME/.kube
+   sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
+   sudo chown $(id -u):$(id -g) ~/.kube/config
+   ```
+
+* `kubectl get nodes` list nodes
+* `kubectl apply -n kube-system -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"` install overlay network plugin
+* `kubectl get pods -n kube-system` list pods
+* `kubectl run nginx --image nginx` run an image (as deployment?)
+* `kubectl get deployments` get deployments
+* `kubectl get pods`
+* `kubectl describe pods nginx-65899c769f-mk6sw` get pod details
+* `kubectl logs deployments/nginx` check logs
+* `kubectl expose deployments/nginx --port 8080 --target-port 80` make app accessible on forwarded port
+* `kubectl get services` get services
+* open service in browser
+
+   ```
+   IP=$(kubectl get service nginx -o go-template --template '{{ .spec.clusterIP}}')
+   curl http://${IP}:8080
+   ```
+
+* generate some logs
+
+   ```
+   curl http://${IP}:8080
+   curl http://${IP}:8080
+   kubectl logs deployments/nginx
+   ```
+
+* `kubectl scale deployments/nginx --replicas 3` scale application
+* `kubectl get pods -o wide -w` verify we have 3 pods
 
 
 Docker Commands Cheat Sheet
