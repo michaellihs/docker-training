@@ -362,6 +362,14 @@ Setup Kubernetes
 * `kubectl get pods -o wide -w` verify we have 3 pods
 
 
+Docker Plugins
+==============
+
+* Docker engine can be extended using plugins
+* sample plugin: `vieux/sshfs`
+* plugins are special Docker containers
+
+
 Docker Commands Cheat Sheet
 ===========================
 
