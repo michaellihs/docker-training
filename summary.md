@@ -280,6 +280,33 @@ Docker Swarm
   * data plane
 * in comparison to compose, a `service` in swarm can describe a collection of containers
 * `task` is a unit of work assigned to a node
+* Docker suggests to have at most 7 managers in a cluster
+  * with only 2 managers, Swarm will no longer process changes anymore
+
+
+Kubernetes
+==========
+
+* Nowadays fully managed by the CNCF
+* Kubernetes Core Objects see https://kubernetes.io/docs/concepts/#kubernetes-objects
+  * **Pod** group of co-located containers, smallest unit that can be deployed in Kubernetes
+  * **ReplicaSet** collection of pods (like service in Docker)
+  * **Service** reliable networking endpoint for a set of Pods
+  * **Deployment** declarative governance of Replica set (update strategies...)
+* all containers in a pod share same IP
+* Pod networking
+  * all applications in a pod have a common shared veth interface
+  * see https://medium.com/@ApsOps/an-illustrated-guide-to-kubernetes-networking-part-1-d1ede3322727
+* Kubernetes itself does not have multi-host networking
+  * outsourced to plugin: Flannel, Weave, ...
+  * see https://kubernetes.io/docs/concepts/cluster-administration/networking/
+* Kubernetes networking planes
+  * Management
+    * master to master: etcd Raft
+    * master to node: apiserver <-> kubelet
+* Data & Control
+  * BYO networking
+  * Cluster DNS
 
 
 Docker Commands Cheat Sheet
@@ -432,6 +459,21 @@ Docker Commands Cheat Sheet
 * `update --label-add datacenter=east bos5` set a label on a node
 
 
+`kubeadm`
+---------
+
+* `init` initialize a Kubernetes cluster
+* `join --token <TOKEN> <IP>:<PORT> --discovery-token-ca-cert-hash sha256` join a Kubernetes cluster with given token
+
+
+`kubectl`
+---------
+
+* `get nodes` list all nodes in Kubernetes cluster
+* `apply -n kube-system -f ...` install weave overlay network
+
+
+
 Tools
 =====
 
@@ -450,4 +492,5 @@ Resources
 * [Docker Labs: Networks](https://github.com/docker/labs/blob/master/networking/README.md)
 * [Docker Training repositories](https://github.com/docker-training)
 * [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
+* [BORG & Kubernetes](https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/)
 
