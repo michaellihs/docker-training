@@ -252,6 +252,20 @@ Networking
    brctl show docker0
    ```
 
+Networking Security
+-------------------
+
+* do not use the `host` network in production
+* do not connect containers to the same network unnecessarily
+
+
+Docker Compose
+==============
+
+* `docker-compose` is mainly a development tool nowadays
+* a **service** defines a desired state of a group of identically configured containers
+  * **service discovery / load balancing** services are assigned a virtual IP which spreads traffic out across underlying containers
+
 
 Docker Commands Cheat Sheet
 ===========================
@@ -271,6 +285,9 @@ Docker Commands Cheat Sheet
 * chaining of commands `docker container rm -f $(docker container ls -l -q)` deletes the last created container
 * `docker container diff $(docker container ls -l -q)` diff changes made to a container (in comparison to a underlying image)
 * `docker container commit <container ID> <image name>:<version>` - create a new image from a given container
+* `port` shows port mappings of containers
+* `run -p <host-port>:<container-port>` maps `container-port` inside the container to `host-port` on the host machine
+* `run -P` map all ports mentioned in the `Dockerfile`'s `EXPOSE` directive
 
 
 `docker image`
@@ -312,6 +329,40 @@ Docker Commands Cheat Sheet
 * `create --driver bridge my_bridge` creates a new custom bridge
 
 
+`docker-compose`
+----------------
+
+* `up` start the application defined in your `docker-compose.yml`
+  * pressing `CTRL + C` kills the app
+* `up -d` sends application to the background
+* `ps` shows running containers
+
+   ```
+           Name                      Command               State          Ports         
+   ------------------------------------------------------------------------------------
+   dockercoins_hasher_1   ruby hasher.rb                   Up      0.0.0.0:8002->80/tcp 
+   dockercoins_redis_1    docker-entrypoint.sh redis ...   Up      6379/tcp             
+   dockercoins_rng_1      python rng.py                    Up      0.0.0.0:8001->80/tcp 
+   dockercoins_webui_1    node webui.js                    Up      0.0.0.0:8000->80/tcp 
+   dockercoins_worker_1   python worker.py                 Up   
+   ```
+   `NAME` consists of `folder-name_service-name_instance`
+
+* `logs` show logs of compose managed app
+* `logs --tail 10 --follow` show the last 10 lines of the logs and follow afterwards
+  * `CTRL+S` will pause the stream, `CTRL+Q` will resume the stream
+* `scale <service name>=<number>` scales instances of `service name` to given number
+* `down` shut down the app
+
+
+Tools
+=====
+
+* [hstr `hh`](https://github.com/dvorka/hstr)
+* [httping](https://www.vanheusden.com/httping/)
+* [brctl](https://www.thegeekstuff.com/2017/06/brctl-bridge/)
+
+
 Resources
 =========
 
@@ -319,4 +370,7 @@ Resources
 * [Container Tutorial](https://github.com/jpetazzo/container.training)
 * [Code Golf](https://codegolf.stackexchange.com/questions)
 * [Best Practices for Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+* [Docker Labs: Networks](https://github.com/docker/labs/blob/master/networking/README.md)
+* [Docker Training repositories](https://github.com/docker-training)
+* [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
 
