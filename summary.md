@@ -267,6 +267,21 @@ Docker Compose
   * **service discovery / load balancing** services are assigned a virtual IP which spreads traffic out across underlying containers
 
 
+Docker Swarm
+============
+
+* Swim Protocol https://asafdav2.github.io/2017/swim-protocol/
+* Raft Consensus https://raft.github.io/
+* Swarm network consists of Manager and Workers
+  * https://docs.docker.com/engine/swarm/how-swarm-mode-works/nodes/
+* Multiple planes - see https://gist.github.com/BretFisher/7233b7ecf14bc49eb47715bbeb2a2769 for ports
+  * mgmt plane
+  * control plane
+  * data plane
+* in comparison to compose, a `service` in swarm can describe a collection of containers
+* `task` is a unit of work assigned to a node
+
+
 Docker Commands Cheat Sheet
 ===========================
 
@@ -353,6 +368,68 @@ Docker Commands Cheat Sheet
   * `CTRL+S` will pause the stream, `CTRL+Q` will resume the stream
 * `scale <service name>=<number>` scales instances of `service name` to given number
 * `down` shut down the app
+
+
+`docker swarm`
+--------------
+
+* `init` enable swarm mode on whethever node is to be your first manager node
+  * `docker system info` check that swarm mode is active
+
+     ```
+     Swarm: active
+      NodeID: mkxf2lzk2guvwfw4h5e11ewuw
+      Is Manager: true
+      ClusterID: b5ewyezpvimlf6q8xttwv1x89
+      Managers: 1
+      Nodes: 1
+      Orchestration:
+       Task History Retention Limit: 5
+      Raft:
+       Snapshot Interval: 10000
+       Number of Old Snapshots to Retain: 0
+       Heartbeat Tick: 1
+       Election Tick: 10
+      Dispatcher:
+       Heartbeat Period: 5 seconds
+      CA Configuration:
+       Expiry Duration: 3 months
+       Force Rotate: 0
+      Autolock Managers: false
+      Root Rotation In Progress: false
+      Node Address: 159.65.118.11
+      Manager Addresses:
+       159.65.118.11:2377
+     ```
+
+* `docker node ls` see all nodes in your swarm
+* `docker swarm join-token worker` get (a new) join token on the manager node
+* `docker swarm join --token <token> <ip>:2377` join a new node to the manager given by `ip` using `token`
+* `docker node promote <node-1> <node-2>` promote workers on a manager where `node-1` and `node-2` are the hostnames of the workers to be promoted. Check with `docker node ls` afterwards
+
+   ```
+   ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+   mkxf2lzk2guvwfw4h5e11ewuw *   bos5                Ready               Active              Leader              18.03.1-ce
+   m19mw7b8rn7xq57b748f7g42u     bos8                Ready               Active              Reachable           18.03.1-ce
+   mm9h45t3zshdl98ijzbtyyv0z     bos46               Ready               Active              Reachable           18.03.1-ce
+   u5k4e0t7ng395zklv2xydh4ad     bos52               Ready               Active                                  18.03.1-ce
+   ```
+
+
+`docker service`
+----------------
+
+* `ps <service name>` inspect a service
+* `create <service name>` create a service with given name
+  * example `docker service create --entrypoint "ping 8.8.8.8" alpine` creates (sample) service with given entrypoint based on given image
+* `update <service name>` updates a given service, e.g. to set flags
+  * e.g. `docker service update <service name> --replicas 6`
+
+
+`docker node`
+-------------
+
+* `update --label-add datacenter=east bos5` set a label on a node
 
 
 Tools
