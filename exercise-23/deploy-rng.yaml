@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet 
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: null
+  generation: 1
+  labels:
+    run: rng
+  name: rng
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/rng
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      run: rng
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: rng
+    spec:
+      containers:
+      - image: michaellihs/dockercoins_rng:1.0
+        imagePullPolicy: IfNotPresent
+        name: rng
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
