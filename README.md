@@ -29,6 +29,7 @@ Docker Training 15.5.2018
 - [Docker Swarm](#docker-swarm)
 - [Kubernetes](#kubernetes)
     - [Setup Kubernetes](#setup-kubernetes)
+- [Docker Plugins](#docker-plugins)
 - [Docker Commands Cheat Sheet](#docker-commands-cheat-sheet)
     - [`docker container`](#docker-container)
     - [`docker image`](#docker-image)
@@ -40,6 +41,8 @@ Docker Training 15.5.2018
     - [`docker node`](#docker-node)
     - [`kubeadm`](#kubeadm)
     - [`kubectl`](#kubectl)
+    - [`docker secret`](#docker-secret)
+    - [`docker system`](#docker-system)
 - [Tools](#tools)
 - [Resources](#resources)
 
@@ -436,7 +439,7 @@ Docker Commands Cheat Sheet
 `docker-compose`
 ----------------
 
-* `up` start the application defined in your `docker-compose.yml`
+* `up -c docker-compose.yml` start the application defined in your `docker-compose.yml`
   * pressing `CTRL + C` kills the app
 * `up -d` sends application to the background
 * `ps` shows running containers
