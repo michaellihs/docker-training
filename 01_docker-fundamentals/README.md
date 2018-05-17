@@ -1,9 +1,9 @@
-Docker Training 15.5.2018
-=========================
+Docker Fundamentals Training - 15.5.2018
+========================================
 
 [TOC levels=1-3]: # " "
 
-- [Docker Training 15.5.2018](#docker-training-1552018)
+- [Docker Fundamentals Training - 15.5.2018](#docker-fundamentals-training---1552018)
     - [Training Concepts](#training-concepts)
     - [Kubernetes vs. Swarm](#kubernetes-vs-swarm)
     - [Problems with Deploying / moving software](#problems-with-deploying--moving-software)
