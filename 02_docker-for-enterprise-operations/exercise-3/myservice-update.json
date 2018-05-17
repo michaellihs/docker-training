@@ -1,0 +1,17 @@
+{
+  "Name":"demo",
+  "EndpointSpec": {
+    "Ports": [
+      {
+        "Protocol": "tcp",
+        "PublishedPort": 8080,
+        "TargetPort": 80
+      }
+    ]
+  },
+  "TaskTemplate": {
+    "ContainerSpec": {
+      "Image":"nginx:latest"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "Name":"demo",
+  "TaskTemplate": {
+    "ContainerSpec": {
+      "Image":"nginx:latest"
+    }
+  }
+}
