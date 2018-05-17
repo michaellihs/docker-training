@@ -9,6 +9,7 @@ Read it like "Docker for Enterprise - Operations", so we learn about operations 
 - [Docker for Enterprise Operations 2018-05-17](#docker-for-enterprise-operations-2018-05-17)
     - [Docker EE Features](#docker-ee-features)
     - [Architecture / Configuration](#architecture--configuration)
+    - [Universal Control Plane (UCP) API](#universal-control-plane-ucp-api)
 - [Resources](#resources)
 
 
@@ -42,6 +43,14 @@ Architecture / Configuration
   * Don't run workload on managers
   * Do not terminate HTTPS in manager LB
   * `https://206.189.54.85/_ping` shows manager health
+
+
+Universal Control Plane (UCP) API
+---------------------------------
+
+* see https://206.189.54.85/apidocs/
+* for working on CLI, certs are required
+  * username -> My Profile -> Client Bundles, see https://206.189.54.85/manage/profile/clientbundle/
 
 
 Resources
