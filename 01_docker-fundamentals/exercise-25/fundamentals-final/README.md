@@ -22,6 +22,10 @@ After building the images:
 Running with `docker-compose`
 =============================
 
+Build all images with:
+
+    docker-compose build
+
 After building the images:
 
     docker-compose up -d

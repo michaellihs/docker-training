@@ -2,14 +2,15 @@ version: "3.1"
 
 services:
   database:
+    build:
+      context: ./database
     image: michaellihs/mydb:latest
     networks:
     - my_app
-    environment:
-    - POSTGRES_USER=gordonuser
-    - POSTGRES_DB=ddev
 
   api:
+    build:
+      context: ./api
     image: michaellihs/myapi:latest
     networks:
     - my_app
@@ -17,6 +18,8 @@ services:
     - "8081:8080"
 
   frontend:
+    build:
+      context: ./ui
     image: michaellihs/myfrontend:latest
     networks:
     - my_app
