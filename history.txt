@@ -1,0 +1,918 @@
+    1  docker container run centos:7 echo "hello world"
+    2  docker container run centos:7 ps -ef
+    3  ps -ef
+    4  docker container ls
+    5  docker container ls -a
+    6  docker container run -it centos:7 bash
+    7  docker container ls -a
+    8  docker container start 53bb807cbe8b
+    9  ls -l
+   10  docker container exec 53bb807cbe8b ps -ef
+   11  docker container exec -it 53bb807cbe8b bash
+   12  docker container ls -a --no-trunc
+   13  docker container ls -a -q
+   14  docker container ls -l
+   15  docker container ls -a --filter "exited=0"
+   16  docker attach 53bb807cbe8b429417dad571b6530339f52f27b3da76166a4e1e4dabbd00e8b6
+   17  docker container ls -a
+   18  docker container run -it centos:7 bash
+   19  docker container ls -a
+   20  docker attach 9a9086e5f3d8
+   21  docker ps
+   22  docker container run centos:7 ping 8.8.8.8
+   23  docker container run -d -it centos:7 ping 8.8.8.8
+   24  docker attach e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1
+   25  docker ps
+   26  docker container logs --tail 5 e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1
+   27  docker container logs -f e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1
+   28  docker ps
+   29  docker container inspect e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1
+   30  docker container inspect e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1 | grep IPAddress
+   31  docker container inspect e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1 | grep cmd
+   32  docker container inspect e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1 | grep Cmd
+   33  docker container inspect e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1 | grep Cmd -A 4
+   34  docker container inspect --format "{{.Config.Cmd}}"
+   35  docker container inspect --format "{{.Config.Cmd}}" e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1
+   36  docker container inspect --format "{{.NetworkSettingsIPAddress}}" e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1
+   37  docker container inspect --format "{{.NetworkSettings.IPAddress}}" e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1
+   38  docker container inspect --format "{{json .Config}}" e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1 | jq
+   39  apt install jq
+   40  docker container inspect --format "{{json .Config}}" e3c569846a23e5f3b7991286035ac57bbe7d1f094d9436003a4d383d23fa3eb1 | jq
+   41  docker container run -d -it centos:7 ping 127.0.0.1
+   42  docker ps
+   43  docker container run -d -it ping 127.0.0.1
+   44  docker container run centos:7 -d -it ping 127.0.0.1
+   45  docker run -d -it centos:7 ping 127.0.0.1
+   46  docker ps
+   47  docker stop 136ba1f8cdcf
+   48  docker container stop 136ba1f8cdcf
+   49  docker ps
+   50  docker ps -a --filter "exited=0"
+   51  docker ps -a --filter "status=exited"
+   52  docker container rm 136ba1f8cdcf
+   53  docker ps -a --filter "status=exited"
+   54  docker container rm -f 7fe2e66f5b1b
+   55  docker ps -a --filter "status=exited"
+   56  docker ps
+   57  docker container ls -l
+   58  docker container rm -r 4f21fadb4b38
+   59  docker container rm -f 4f21fadb4b38
+   60  docker ps -a
+   61  docker container rm -f $(docker ls -l -q)
+   62  docker container rm -f $(docker container ls -l -q)
+   63  top
+   64  docker container run --help
+   65  docker ps -a
+   66  docker container rm -f e3c569846a23 9a9086e5f3d8 a29a14faf8d4 53bb807cbe8b fa1001ec637f 71548b893e0c
+   67  docker container ls -la
+   68  docker container run -it centos:7 bash
+   69  docker container ls -a
+   70  docker container diff a6f466510099
+   71  docker container commit $(docker container ls -l -q) myapp:1.0
+   72  docker image ls
+   73  docker container run -it myapp:1.0 bash
+   74  docker container ls -la
+   75  docker container diff $(docker container ls -l)
+   76  docker container diff $(docker container ls -l -q)
+   77  docker container commit $(docker container ps -l) myapp:2.0
+   78  docker container ls -l
+   79  docker container commit 3f9a48913a18 myapp:2.0
+   80  docker image ls
+   81  docker container run -it myapp:2.0 bash
+   82  ls -la
+   83  mkdir workspace
+   84  cd workspace/
+   85  mkdir exercise-6
+   86  cd exercise-6/
+   87  vi Dockerfile
+   88  docker image build -t myimage .
+   89  docker container run -it myimage bash
+   90  cat Dockerfile | docker image build -t myimage:2.0 -f - .
+   91  vi Dockerfile 
+   92  cat Dockerfile | docker image built -d myimage:3.0 -f - .
+   93  cat Dockerfile | docker image built -t myimage:3.0 -f - .
+   94  cat Dockerfile | docker image build -t myimage:3.0 -f - .
+   95  docker container run -it myimage bash
+   96  docker image ls
+   97  docker image history 3b121d2935d6
+   98  docker image history 73b6b291d91f
+   99  vi Dockerfile 
+  100  docker image build -t myimage:3.0 .
+  101  docker image ls
+  102  docker image history 0ca156199b0a
+  103  docker image build --h
+  104  docker image build --help
+  105  docker container run -it -v test1:/www/website centos:7 bash
+  106  docker container ps -a
+  107  docker container commit 6d720224c803 test:1.0
+  108  docker container run -it a91e835a513f491bf919a3a98add62c746b4c122246213c86c6572dd18b34254 bash
+  109  docker volume inspect test1
+  110  cd /var/lib/docker/volumes/test1/_data/
+  111  ls -la
+  112  touch test2
+  113  docker container inspect u1
+  114  cd workspace/
+  115  ls -la
+  116  mkdir exercise-7
+  117  cd exercise-7
+  118  cp ../exercise-6/Dockerfile .
+  119  vi Dockerfile 
+  120  docker image build -t myimage:4.0
+  121  docker image build -t myimage:4.0 .
+  122  docker container run myimage:4.0
+  123  vi Dockerfile 
+  124  docker image build -g myimage:5.0 .
+  125  docker image build -t myimage:5.0 .
+  126  docker container run myimage:5.0
+  127  docker container run myimage:5.0 127.0.0.1
+  128  vi Dockerfile 
+  129  docker image build -t myimage:6.0 .
+  130  docker container run myimage:6.0 
+  131  vi Dockerfile 
+  132  docker image build -t myimage:6.0 .
+  133  docker container run myimage:6.0 
+  134  docker container run myimage:6.0 8.8.8.8docker image asdfasdfasdf
+  135  vi Dockerfile2
+  136  docker image build -t myimage:7.0
+  137  docker image build -t myimage:7.0 -f Dockerfile2
+  138  docker image build -t myimage:7.0 - -f Dockerfile2
+  139  docker image build --help
+  140  docker build -f Dockerfile2 -t myimage:7.0
+  141  docker image build -f Dockerfile2 -t myimage:7.0
+  142  docker image build -f Dockerfile2 -t myimage:7.0 .
+  143  docker container run myimage:7.0
+  144  cd ..
+  145  mkdir exercise-8
+  146  cd exercise-8
+  147  vi Dockerfile
+  148  vi hello.c
+  149  yum install -y gcc
+  150  apt-get install gcc
+  151  gcc -Wall hello.c -o hello
+  152  ./hello
+  153  vi Dockerfile 
+  154  docker image buil -t my-app-large .
+  155  docker image build -t my-app-large .
+  156  docker image ls | grep my-app-large
+  157  docker image ls | grep my-app-large
+  158  vi Dockerfile 
+  159  dockerimage build -t my-app-small
+  160  docker image build -t my-app-small .
+  161  docker image ls | grep 'my-app-'
+  162  docker container run --rm my-app-small
+  163  docker image build -t my-build-stage --target build .
+  164  docker container run -it --rm my-build-stage /app/bin/hello
+  165  docker image ls
+  166  docker container run -it 513fd2a9d40f
+  167  docker container run -it 513fd2a9d40f bash
+  168  docker container run -it 513fd2a9d40f /bin/sh
+  169  vi Dockerfile 
+  170  docker image build -t very-small-app .
+  171  docker image ls | grep "image"
+  172  docker image ls
+  173  vi Dockerfile 
+  174  docker image build -t very-small-image .
+  175  docker image ls
+  176  cd ..
+  177  mkdir exercise-9
+  178  cd exercise-9
+  179  docker image ls
+  180  docker image tag centos:7 my-centos:dev
+  181  docker image ls
+  182  docker login
+  183  docker image push my-centos:dev
+  184  docker image tag my-centos:dev michaellihs/my-centos:dev
+  185  docker push michaellihs/my-centos:dev
+  186  vi script. sh
+  187  vi script.sh
+  188  vi Dockerfile
+  189  docker image build -t michaellihs/my-centos-vim:dev .
+  190  vi Dockerfile
+  191  docker image build -t michaellihs/my-centos-vim:dev .
+  192  vi script.sh 
+  193  docker image pull stackware/nomachine
+  194  cd ..
+  195  ls -la
+  196  git init
+  197  git remote add origin git@github.com:michaellihs/docker-training.git
+  198  git add .
+  199  git commit -m "initial commit"
+  200  git config --global user.email "mimi@kaktusteam.de"
+  201  git config --global user.name "Michael Lihs"
+  202  git commit -m "initial commit"
+  203  git push origin master
+  204  git remote -v
+  205  mkdir exercise-10
+  206  cd exercise-10/
+  207  docker volume create --name test1
+  208  docker volume ls
+  209  docker container run -it -v test1:/www/website centos:7 bash
+  210  docker volume rm test1
+  211  docker ps
+  212  docker container ls
+  213  docker container stop 6d720224c803
+  214  docker volume rm test1
+  215  docker container rm -f 6d720224c803
+  216  docker volume rm test1
+  217  docker ps -a
+  218  docker container rm -f c3aa70f94472 51c5ae319806
+  219  docker volume rm test1
+  220  history
+  221  vi script.sh
+  222  docker volume create nginx_logs
+  223  mkdir ~/public_html
+  224  docker container run -d -P --name nginx_server -v ~/public_html:/usr/share/nginx/html -v nginx_logs:/var/log/nginx trainint/nginx:ee2.0
+  225  docker container run -d -P --name nginx_server -v ~/public_html:/usr/share/nginx/html -v nginx_logs:/var/log/nginx training/nginx:ee2.0
+  226  docker container ls
+  227  echo "hallo welt" > ~/public_html/index.html
+  228  curl http://localhost:32768
+  229  docker container exec -it nginx_server bash
+  230  curl http://localhost:32768
+  231  docker container exec -it nginx_server bash
+  232  history
+  233  vi script.sh 
+  234  git status
+  235  git add .
+  236  git commit -m "exercise 10"
+  237  git pull -r
+  238  git pull -r origin master
+  239  git push origin master
+  240  cd ..
+  241  git push origin master
+  242  docker network ls
+  243  docker network inspect bridge
+  244  ip a
+  245  apt-get install bridge-utils
+  246  brctl show docker0
+  247  docker container run --name u1 -dt centos:7
+  248  docker network inspect bridge
+  249  ip a
+  250  brctl show docker0
+  251  docker container exec -it u1 bash
+  252  docker network create --driver bridge my_bridge
+  253  docker container run --name=u2 --network=my_bridge -dt centos:7
+  254  docker container inspect u2
+  255  docker container run centos:7 ping u1
+  256  docker container exec u2 ping 172.18.0.2
+  257  docker container exec u2 ping 172.17.0.3
+  258  docker network connect my_bridge u1
+  259  docker container exec u2 ping 172.17.0.3
+  260  docker container inspect u1
+  261  docker container exec u2 ping 172.18.0.3
+  262  history
+  263  mkdir exercise-12
+  264  cd exercise-12
+  265  vi script.sh
+  266  cd ..
+  267  ls
+  268  git status
+  269  git add .
+  270  git commit -m "exercise 12"
+  271  git push
+  272  git push origin master
+  273  hh -n
+  274  sudo add-apt-repository ppa:ultradvorka/ppa
+  275  sudo apt-get update
+  276  sudo apt-get install hh
+  277  hh --show-configuration >> ~/.bashrc
+  278  source ~/.bashrc 
+  279  hh
+  280  cd
+  281  cd workspace/
+  282  ls -la
+  283  cd ..
+  284  cd workspace/
+  285  mkdir exercise-14
+  286  cd exercise-14
+  287  git clone -b ee2.0 https://github.com/docker-training/orchestration-workshop.git
+  288  cd orchestration-workshop/
+  289  rm -rf .git
+  290  cd ..
+  291  docker login
+  292  cd orchestration-workshop/dockercoins/
+  293  docker image build -t michaellihs/dockercoins_hasher:1.0 hasher
+  294  dockerimage push michaellihs/dockercoins_hasher:1.0
+  295  docker image push michaellihs/dockercoins_hasher:1.0
+  296  docker image build -t michaellihs/dockercoins_rng:1.0 rng
+  297  docker image push michaellihs/dockercoins_rng:1.0
+  298  docker image build -t michaellihs/dockercoins_worker:1.0 worker
+  299  docker image push michaellihs/dockercoins_worker:1.0
+  300  docker image build -t michaellihs/dockercoins_webui:1.0 webui
+  301  docker image push michaellihs/dockercoins_webui:1.0
+  302  vi docker-compose.yml 
+  303  docker-compose up
+  304  docker-compose up -d
+  305  docker-compose ps
+  306  docker container run -d michaellihs/dockercoins_rng:1.0
+  307  docker container ls
+  308  docker-compose ps
+  309  docker-compose ps
+  310  cd workspace/exercise-14/orchestration-workshop/
+  311  docker-compose ps
+  312  ls
+  313  cd dockercoins/
+  314  docker-compose ps
+  315  ifconfig
+  316  cd workspace/exercise-14/orchestration-workshop/dockercoins/
+  317  docker-compose logs
+  318  docker-compose logs --tail 10 --folllow
+  319  docker-compose logs --tail 10 --follow
+  320  hh
+  321  history
+  322  docker image ls
+  323  docker container ls
+  324  docker container ls -a
+  325  cd workspace/
+  326  mkdir exercise-13
+  327  cd exercise-13
+  328  docker container run -d nginx
+  329  docker container ls
+  330  docker container inspect e0f12140bcbf
+  331  ping 172.17.0.4
+  332  curl http://172.17.0.4:80
+  333  docker container kill e0f12140bcbf
+  334  docker container run -d -p 5000:80 nginx
+  335  curl http://localhost:5000
+  336  docker container ls
+  337  docker container port aac042c5cab1
+  338  history
+  339  history -h
+  340  history | cut -c 8-
+  341  vi script.sh
+  342  vi Dockerfile
+  343  docker image build -t my-nginx .
+  344  docker container run -d -P my-nginx
+  345  docker container port 76bb4e1403b8e2d08d17db2aa14e51f3ee61a5cc5d9750120236cac1b45bc85f
+  346  curl localhost:32769
+  347  history | cut -c 8-
+  348  vi script.sh 
+  349  history | cut -c 8-
+  350  history | cut -c 8-
+  351  vi ../../script.sh
+  352  docker-compose ps
+  353  docker-compose scale worker=2
+  354  ls
+  355  vi docker-compose.yml 
+  356  docker-compose ps
+  357  docker-compose scale worker=10
+  358  sudo yum install -y httping
+  359  apt-get install -y httpin
+  360  apt-get install -y httping
+  361  httping -c 10 localhost:8001
+  362  httping -c 10 localhost:8002
+  363  docker-compose down
+  364  cd workspace/
+  365  git status
+  366  git add .
+  367  git commit -m "exercise 13 + 14"
+  368  git push origin master
+  369  git pull -r origin master
+  370  git push origin master
+  371  history | cut -c 8-
+  372  mkdir exercise-16
+  373  cd exercise-16
+  374  docker swarm init
+  375  docker swarm init --advertise-addr 159.65.118.11
+  376  docker system info
+  377  docker node ls
+  378  docker swarm ca --rotate --cert-expiry 168h
+  379  sudo netstat -plunt
+  380  docker swarm join-token woker
+  381  docker swarm join-token worker
+  382  docker node ls
+  383  docker node ls
+  384  docker node promote bos8 bos46
+  385  docker node ls
+  386  history | cut -c 8-
+  387  cd ..
+  388  mkdir exercise-17
+  389  cd exercise-17
+  390  docker network create --driver overlay my_overlay
+  391  docker service create --name pinger --network my_overlay alpine ping 8.8.8.8
+  392  docker service ls
+  393  docker service ps pinger
+  394  docker container ls
+  395  docker container logs 5a257779cf7b
+  396  docker network inspect my_overlay
+  397  docker service update pinger --replicas=8
+  398  docker service ps pinger
+  399  docker node ls
+  400  docker node update --label-add datacenter=east bos5
+  401  docker node update --label-add datacenter=east bos8
+  402  docker node update --label-remove datacenter=east bos8
+  403  docker node update --help
+  404  docker node update --label-rm datacenter=east bos8
+  405  docker node update --label-add datacenter=east bos8
+  406  docker node update --label-add datacenter=west bos46
+  407  docker node update --label-add datacenter=west bos52
+  408  docker service create --name my_proxy --replicas=2 --publish 8000:80 --placement-pref spread=node.labels.datacenter nginx
+  409  docker service update pinger --read-only
+  410  docker service create --entrypoint "ping 8.8.8.8" alpine
+  411  docker service create --detach=false --replicas 5 busybox top
+  412  docker service ps
+  413  docker service ps pinger
+  414  docker service rm $(docker service ls -q)
+  415  docker service ps pinger
+  416  docker service ls
+  417  history | cut -c 8-
+  418  docker service create --replicas 4
+  419  docker service create --replicas 4 --name myProxy nginx
+  420  watch docker service ps myProxy
+  421  docker service rm $(docker service ls -q)
+  422  history | cut -c 8-
+  423  docker network ls
+  424  docker service create --name who-am-I --publish 8000:8000 --replicas 3 training/whoami:latest
+  425  curl -4 localhost:8000
+  426  curl -4 localhost:8000
+  427  curl -4 localhost:8000
+  428  curl -4 localhost:8000
+  429  curl -4 localhost:8000
+  430  curl -4 localhost:8000
+  431  curl -4 localhost:8000
+  432  curl -4 localhost:8000
+  433  docker service update who-am-I --replicas 6
+  434  for value in {1..10}; do; curl -4 localhost:8000; done
+  435  for value in {1..10} do; curl -4 localhost:8000; done
+  436  for value in {1..10}; do curl -4 localhost:8000; done
+  437  for value in {1..10}; do print $value; curl -4 localhost:8000; done
+  438  for value in {1..10}; do echo $value; curl -4 localhost:8000; done
+  439  for value in {1..10}; do echo -n $value; curl -4 localhost:8000; done
+  440  for value in {1..10}; do echo -n "$value "; curl -4 localhost:8000; done
+  441  for value in {1..10}; do echo -n "$($value % 6) "; curl -4 localhost:8000; done
+  442  for value in {1..10}; do echo -n "$(($value % 6)) "; curl -4 localhost:8000; done
+  443  docker service create --name nginx --publish 8080:80 nginx
+  444  docker service ps nginx
+  445  docker servic rm $(docker service ls -q)
+  446  docker service rm $(docker service ls -q)
+  447  history | cut -c 8-
+  448  cd workspace/
+  449  git status
+  450  git pull -r origin master
+  451  mkdir exercise-20
+  452  cp -a exercise-14/orchestration-workshop exercise-20/
+  453  cd exercise-20/orchestration-workshop/dockercoins/
+  454  docker stack deploy -c=docker-compose.yml dc
+  455  docker stack services dc
+  456  docker stack services dc
+  457  docker stack ps dc
+  458  vi docker-compose.yml 
+  459  docker stack deploy -c docker-compose.yml dc
+  460  vi docker-compose.yml 
+  461  docker stack deploy -c docker-compose.yml dc
+  462  httping -c 10 localhost:8001
+  463  httping -c 10 localhost:8002
+  464  vi docker-compose.yml 
+  465  docker stack rm dc
+  466  docker stack deploy -c=docker-compose.yml dc
+  467  vi worker/worker.py 
+  468  docker image build -t michaellihs/dockercoins_worker:1.1 worker
+  469  docker image push michaellihs/dockercoins_worker:1.1
+  470  docker service update dc_worker --image michaellihs/dockercoins_worker:1.1
+  471  vi docker-compose.yml 
+  472  docker stack deploy -c=docker-compose.yml dc
+  473  docker service udpate --update-failure-action=rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker
+  474  docker service update --help
+  475  docker service udpate --update-failure-action=rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker
+  476  docker service udpate --update-failure-action rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker
+  477  docker service udpate --update-failure-action=rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker
+  478  docker version
+  479  vi worker/worker.py 
+  480  docker image build -t michaellihs/dockercoins_worker:buggy worker
+  481  docker service udpate --update-failure-action=rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker
+  482  docker service update --update-failure-action=rollback dc_worker
+  483  docker service update --update-failure-action=rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker
+  484  docker image push michaellihs/dockercoins_worker:buggy
+  485  dockerservice update dc_worker --image michaellihs/dockercoins_worker:buggy
+  486  docker service update dc_worker --image michaellihs/dockercoins_worker:buggy
+  487  docker stack ls
+  488  docker stack rm dc
+  489  history | cut -c 8-
+  490  cd ..
+  491  cd ..
+  492  vi script.sh
+  493  echo "docker service udpate --update-failure-action=rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker" > gehtnicht.txt
+  494  echo "docker service update --update-failure-action=rollback --rollback-parallelism=2 --rollback-monitor=20s --rollback-max-failure-ratio=0.2 dc_worker" > geht.txt
+  495  diff gehtnicht.txt geht.txt 
+  496  diff -h
+  497  man diff
+  498  diff -y gehtnicht.txt geht.txt 
+  499  diff --color=auto gehtnicht.txt geht.txt 
+  500  cmp gehtnicht.txt geht.txt 
+  501  git status
+  502  ls
+  503  rm geht*
+  504  ls -la
+  505  cd ..
+  506  git status
+  507  git add .
+  508  git commit -m "exercise 20"
+  509  git pull -r origin master
+  510  git push origin master
+  511  kubeadm init
+  512  whois 7.7.7.7
+  513  mkdir -p $HOME/.kube
+  514  sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
+  515  sudo chown $(id -u):$(id -g) ~/.kube/config 
+  516  kubectl get nodes
+  517  kubectl apply -n kube-systems -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+  518  kubectl apply -n kube-system -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+  519  get nodes -w
+  520  kubectl get nodes -w
+  521  watch -n1 "docker service ps dc_worker | grep -v Shutdown.*Shutdown"
+  522  kubectl get nodes
+  523  kubectl get pods -n kube-system
+  524  kubectl run nginx --image nginx
+  525  kubectl get deployments
+  526  kubectl get pods
+  527  kubectl describe pods nginx-65899c769f-mk6sw
+  528  kubectl lots deployments/nginx
+  529  kubectl logs deployments/nginx
+  530  kubectl expose deployments/nginx --port 8080 --target-port 80
+  531  kubectl get services
+  532  IP=$(kubectl get service nginx -o go-template --template '{{ .spec.clusterIP}})
+  533  IP=$(kubectl get service nginx -o go-template --template '{{ .spec.clusterIP}}')
+  534  curl http://${IP}:8080
+  535  kubectl logs deployments/nginx
+  536  curl http://${IP}:8080
+  537  kubectl logs deployments/nginx
+  538  kubectl scale deployments/nginx --replicas 3
+  539  kubectl get pods -o wide -w
+  540  echo $IP
+  541  mkdir exercise-22
+  542  history | cut -c 8-
+  543  vi exercise-22/script.sh
+  544  git status
+  545  git add .
+  546  git commit -m "exercise 22"
+  547  git pull -r origin master
+  548  git push origin master
+  549  kubectl delete deployment nginx
+  550  mkdir exercise-23
+  551  cd exercise-23
+  552  kubectl run redis --image redis
+  553  export USER="michaellihs"
+  554  for DEPLOYMENT in hasher rng webui worker; do kubectl run $DEPLOYMENT --image=${USER}/dockercoins_${DEPLOYMENT}:1.0; done
+  555  kubectl get pods -o wide -w
+  556  kubectl logs deploy/rng
+  557  kubectl logs deploy/worker
+  558  kubectl expose deployment redis --port 6379
+  559  kubectl logs deploy/worker
+  560  kubectl logs deploy/worker
+  561  kubectl logs deploy/worker
+  562  kubectl logs deploy/worker
+  563  kubectl logs deploy/worker
+  564  kubectl logs deploy/worker
+  565  kubectl expose deployment rng --port 80
+  566  kubectl expose deployment rng --port 80
+  567  kubectl logs deploy/worker
+  568  kubectl logs deploy/worker
+  569  kubectl logs deploy/worker
+  570  kubectl logs deploy/worker
+  571  kubectl expose deployment hasher --port 80
+  572  kubectl logs deploy/worker
+  573  kubectl logs deploy/worker
+  574  kubectl logs deploy/worker
+  575  kubectl logs deploy/worker
+  576  kubectl get services -o wide
+  577  kubectl expose deploy/webui --type=NodePort --port=80
+  578  kubectl get services -o wide
+  579  curl localhost:30543/index.html
+  580  ifconfig
+  581  kubectl scale deploy/worker replicas=10
+  582  kubectl scale deploy/worker --replicas=10
+  583  kubectl get deploy/rng -o yaml --export > deploy-rng.yaml
+  584  vi deploy-rng.yaml 
+  585  kubectl apply -f deploy-rng.yaml
+  586  kubectl get daemonset
+  587  kubectl get all
+  588  kubectl delete deploy/rng
+  589  for D in redis hasher rng webui; do kubectl delete svc/$D; done
+  590  for D in redis hasher webui worker; do kubectl delete deploy/$D; done
+  591  kubectl delete ds/rng
+  592  kubectl get all
+  593  kubectl delete service/nginx
+  594  kubectl get all
+  595  history | cut -c 8-
+  596  cd ..
+  597  mkdir exercise-24
+  598  cd exercise-24
+  599  echo 'abc1234' | docker secret create my-secret -
+  600  docker secret ls
+  601  docker secret inspect
+  602  docker secret inspect my-secret
+  603  docker service create --name demo --secret my-secret alpine:latest ping 8.8.8.8
+  604  docker container ls
+  605  docker container exec -it 28640d8340f4 sh
+  606  vi app.py
+  607  vi Dockerfile
+  608  docker image build -t michaellihs/secrets-demo:1.0
+  609  docker image build -t michaellihs/secrets-demo:1.0 .
+  610  vi Dockerfile 
+  611  docker image build -t michaellihs/secrets-demo:1.0 .
+  612  docker image push michaellihs/secrets-demo:1.0
+  613  docker service create --name secrets-demo --replicas=1 --secret source=my-secret,target=/custom/path/password,mode=0400 -e USERNAME="jdoe" -e PASSWORD_FILE="/custom/path/password" michaellihs/secrets-demo:1.0
+  614  docker container ps
+  615  docker container exec -it 28640d8340f4 sh
+  616  docker swarm service ls
+  617  docker services ls
+  618  docker service ls
+  619  docker service inspect of68j7k1bxzj
+  620  docker service ps 
+  621  docker service ls
+  622  docker service ps secrets-demo
+  623  history | cut -c 8-
+  624  vi script.sh
+  625  echo "jdoe" > username
+  626  echo "my-pass" > password
+  627  kubectl create secret generic user-pass --from-file=./username --from-file=./password
+  628  vi secretpod.yaml
+  629  kubectl create -f secretpod.yaml
+  630  vi secretpod.yaml 
+  631  kubectl create -f secretpod.yaml
+  632  vi secretpod.yaml 
+  633  kubectl create -f secretpod.yaml
+  634  kubectl exec -it secretpod bash
+  635  kubectl exec -it secretpod bash
+  636  kubectl exec -it secretpod bash
+  637  kubectl exec -it secretpod bash
+  638  kubectl exec -it secretpod bash
+  639  kubectl ls pods
+  640  kubectl ls pod
+  641  kubectl pods
+  642  kubectl get pods
+  643  kubectl inspect pod secretpod
+  644  kubectl inspect secretpod
+  645  docker ps -a
+  646  kubectl get nodes
+  647  kubectl get pods
+  648  kubectl describe pods secretpod
+  649  kubectl exec -it secretpod bash
+  650  history | cut -c 8-
+  651  history | cut -c 8-
+  652  vi script.sh
+  653  cd ..
+  654  git status
+  655  git add .
+  656  git commit -m "exercise 23, 24"
+  657  git pull -r origin master
+  658  git push origin master
+  659  docker system info
+  660  docker container prune --help
+  661  docker system prune --help
+  662  docker system prune
+  663  docker system prune -f
+  664  docker container run --label apple --name fuji -d alpine
+  665  docker container run --label orange --name clementine -d alpine
+  666  docker container ls -a
+  667  docker container prune --filter 'label=apple'
+  668  docker container ps -a
+  669  TIMESTAMP=$(date --rfc-339=seconds | sed 's/ /T/')
+  670  TIMESTAMP=$(date --rfc-3339=seconds | sed 's/ /T/')
+  671  docker container run --label tomato --name beefsteak -d alpine
+  672  docker container prune -f --filter "until=$TIMESTAMP"
+  673  docker container ls -a
+  674  mkdir exercise-26
+  675  cd exercise-26
+  676  history | cut -c 8-
+  677  history | cut -c 8-
+  678  vi script.sh
+  679  git add .
+  680  git status
+  681  git commit -m "exercise 26"
+  682  git push origin master
+  683  git pull -r origin master
+  684  git push origin master
+  685  git push origin master
+  686  cd ..
+  687  git push origin master
+  688  ls -la
+  689  docker plugin install vieux/sshfs
+  690  docker plugin ls
+  691  docker plugin set vieux/sshfs DEBUG=1
+  692  docker volume create -d vieux/sshfs -o sshcmd=root@159.65.118.157:tmp -o password=akradocker123
+  693  docker volume create -d vieux/sshfs -o sshcmd=root@159.65.118.157:tmp -o password=akradocker123 sshvolume
+  694  docker container run --rm -it -v sshvolume:/data alpine sh
+  695  docker volume create -d vieux/sshfs -o sshcmd=root@159.65.118.157:/tmp -o password=akradocker123 sshvolume
+  696  docker container run --rm -it -v sshvolume:/data alpine sh
+  697  docker volume create -d vieux/sshfs -o sshcmd=root@159.65.118.157://tmp -o password=akradocker123 sshvolume
+  698  docker container run --rm -it -v sshvolume:/data alpine sh
+  699  git status
+  700  git push origin master
+  701  cd workspace/
+  702  mkdir exercise-25
+  703  cd exercise-25
+  704  git clone https://github.com/docker-training/fundementals-final.git
+  705  git clone -b ee2.0 https://github.com/docker-training/fundementals-final.git
+  706  git clone -b ee2.0 https://github.com/docker-training/fundamentals-final.git
+  707  cd fundamentals-final/
+  708  ls -la
+  709  rm -rf .git
+  710  cd database/
+  711  vi Doc
+  712  cd workspace/exercise-25
+  713  cd fundamentals-final/database/
+  714  docker build -t michaellihs/mydb:latest .
+  715  docker build -t michaellihs/mydb:latest .
+  716  docker build -t michaellihs/mydb:latest .
+  717  docker build -t michaellihs/mydb:latest .
+  718  cd ..
+  719  ls -la
+  720  vi docker-compose.yml
+  721  vi Dockerfile
+  722  docker image build -t michaellihs/mydb:latest .
+  723  docker image build -t michaellihs/mydb:latest database
+  724  vi database/Dockerfile 
+  725  docker build -t michaellihs/mydb:latest database
+  726  docker container run --name database -d mydb:latest
+  727  docker container run --name database -d michaellihs/mydb:latest
+  728  docker container exec -it 8054b11bc42a406c42311be31e65b8a75c3826463205afeed83ced3ac14ab47e bash
+  729  docker container ls -l
+  730  docker container kill 8054b11bc42a
+  731  docker container rm 8054b11bc42a
+  732  vi docker-compose.yml 
+  733  cd api
+  734  ls -la
+  735  cd ../api
+  736  vi pom.xml 
+  737  ls -la
+  738  vi Dockerfile
+  739  docker image build -t michaellihs/myapi:latest .
+  740  vi Dockerfile
+  741  docker image build -t michaellihs/myapi:latest .
+  742  vi Dockerfile 
+  743  docker image build -t michaellihs/myapi:latest .
+  744  cd ..
+  745  docker image build -t michaellihs/myapi:latest api
+  746  cd ..
+  747  ls -la
+  748  docker network create demo_net
+  749  docker network create demo_net
+  750  netstat -tulpn
+  751  docker container ls
+  752  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  753  docker container kill ea1658f49eb5d1c79cf50ace017bdaa0070ca48b07a4e8f44900e2b1bcdca1d7
+  754  docker container rm ea1658f49eb5d1c79cf50ace017bdaa0070ca48b07a4e8f44900e2b1bcdca1d7
+  755  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  756  ifconfig
+  757  netstat -tulpn
+  758  docker container ps
+  759  docker container ps -a
+  760  docker container logs 96d34c701034
+  761  vi api/Dockerfile 
+  762  docker image build -t michaellihs/myapi:latest api
+  763  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  764  docker container rm 96d34c701034b42ef80af753df7bbc8eacbc46113b8d38934550bca1702d9d34
+  765  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  766  docker ps
+  767  docker container logs api
+  768  docker container run -it api bash
+  769  docker container run -it michaellihs/api bash
+  770  docker container run -it michaellihs/myapi bash
+  771  docker container exec -it michaellihs/myapi bash
+  772  docker container ps -a
+  773  docker container run -it 0583492763a1 bash
+  774  docker container exec -it 0583492763a1 bash
+  775  docker container run -it 0583492763a1 bash
+  776  docker container start 0583492763a1
+  777  docker container ps 
+  778  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  779  docker container rm 7af71ba532d72f7814493bf4fb4c23057f43ac594a1a7fb8a1f1418999dfd8ee
+  780  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  781  docker container logs e010c6e857e9111bd2981a69040c0f9d10e622d73356eb22e0a71f6230a5b52a
+  782  vi api/Dockerfile 
+  783  docker image build -t michaellihs/myapi:latest api
+  784  docker run -it michaellihs/myqpi:latest bash
+  785  docker run -it michaellihs/myapi:latest bash
+  786  docker run -it michaellihs/myapi:latest /bin/bash
+  787  docker run -it michaellihs/myapi:latest sh
+  788  vi api/Dockerfile 
+  789  vi api/Dockerfile 
+  790  vi api/Dockerfile 
+  791  docker image build -t michaellihs/myapi:latest api
+  792  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  793  docker container rm e010c6e857e9111bd2981a69040c0f9d10e622d73356eb22e0a71f6230a5b52a
+  794  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  795  docker container ps
+  796  docker container logs13a71cbac7b23a761f1a537880901603cb358253a54813957e22009c53fc7331
+  797  docker container logs 13a71cbac7b23a761f1a537880901603cb358253a54813957e22009c53fc7331
+  798  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sh"  michaellihs/myapi:latest
+  799  docker container rm 13a71cbac7b23a761f1a537880901603cb358253a54813957e22009c53fc7331
+  800  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sh"  michaellihs/myapi:latest
+  801  docker container rm eca931b1f021d2d478b7f85b1060738b26c76bb355bc8a755bd53fe87f2eea2a
+  802  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sh"  michaellihs/myapi:latest sh
+  803  docker container logs 3b0538a49dd4a2a0c29c7bb049778591fa81b49eb1edfac4bf2744f6002a62f4
+  804  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sh" --user root  michaellihs/myapi:latest sh
+  805  docker container rm 3b0538a49dd4a2a0c29c7bb049778591fa81b49eb1edfac4bf2744f6002a62f4
+  806  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sh" --user root  michaellihs/myapi:latest sh
+  807  docker container logs d83bb8809c284448bbb55b7be2ed19dcbfd724c97cab33faabf1cb29114a95df
+  808  docker container rm d83bb8809c284448bbb55b7be2ed19dcbfd724c97cab33faabf1cb29114a95df
+  809  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sh" --user root  michaellihs/myapi:latest /bin/sh
+  810  docker container rm c6ad8f95a76bbef19652048c730937b57b5d516da6d2e7a677603479fbc2ca74
+  811  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "/bin/sh" --user root  michaellihs/myapi:latest /bin/sh
+  812  docker container logs e15661e25e226e652e3bd5b3037bab6613f3b5644a130cbf24ddcaa6868b059b
+  813  docker container rm e15661e25e226e652e3bd5b3037bab6613f3b5644a130cbf24ddcaa6868b059b
+  814  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sleep 100000" --user root  michaellihs/myapi:latest
+  815  docker container run -d --network demo_net -p 8081:8080 --name api --entrypoint "sleep 100000" --user root  michaellihs/myapi:latest
+  816  docker container run -d --network demo_net -p 8081:8080 --entrypoint "sleep 100000" --user root  michaellihs/myapi:latest
+  817  docker container run -d --network demo_net -p 8081:8080 --entrypoint "" --user root  michaellihs/myapi:latest sh
+  818  docker container logs afa6a85767204cb1f4f6f96eac57bc8a1aae9b46ee808452a38f33da2cfa43d2
+  819  docker container run -d --network demo_net -p 8081:8080 --entrypoint "" --user root  michaellihs/myapi:latest /bin/sh
+  820  docker container logs 181b48576358f637f386c6ace9773d76e25d8f7cf87a4c35502ec06e9badfa50
+  821  docker container run -it --network demo_net -p 8081:8080 --entrypoint "" --user root  michaellihs/myapi:latest /bin/sh
+  822  docker container run -it --network demo_net -p 8081:8080 --entrypoint "java -jar app.jar" --user root  michaellihs/myapi:latest
+  823  vi README.md
+  824  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java -jar /app/app.jar --spring.profiles.active=postgres" --user root  michaellihs/myapi:latest
+  825  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java" --user root  michaellihs/myapi:latest
+  826  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java -jar /app/app.jar" --user root  michaellihs/myapi:latest
+  827  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/bin/sh" --user root  michaellihs/myapi:latest
+  828  vi api/Dockerfile 
+  829  vi api/Dockerfile 
+  830  docker container run -it --network demo_net -p 8081:8080 --entrypoint "whoami && /bin/sh" --user root  michaellihs/myapi:latest
+  831  docker container run -it --network demo_net -p 8081:8080 --entrypoint "whoami" --user root  michaellihs/myapi:latest
+  832  docker container run -it --network demo_net -p 8081:8080 --entrypoint "java -jar /app/app.jar" --user root  michaellihs/myapi:latest
+  833  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java -jar /app/app.jar" --user root  michaellihs/myapi:latest
+  834  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java -jar app.jar" --user root  michaellihs/myapi:latest
+  835  docker container run -it --network demo_net -p 8081:8080 --entrypoint "pwd" --user root  michaellihs/myapi:latest
+  836  docker container run -it --network demo_net -p 8081:8080 --entrypoint "ls -la" --user root  michaellihs/myapi:latest
+  837  docker container run -it --network demo_net -p 8081:8080 --entrypoint ["ls", "-la"] --user root  michaellihs/myapi:latest
+  838  docker container run -it --network demo_net -p 8081:8080 --entrypoint '["ls", "-la"]' --user root  michaellihs/myapi:latest
+  839  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java -jar app.jar" --user root  michaellihs/myapi:latest -s
+  840  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java" --user root  michaellihs/myapi:latest -jar app.jar
+  841  vi api/Dockerfile 
+  842  docker image build -t michaellihs/myapi:latest api
+  843  docker container run -it --network demo_net -p 8081:8080 --user root  michaellihs/myapi:latest
+  844  docker container run -d --name api --network demo_net -p 8081:8080 --user root  michaellihs/myapi:latest
+  845  docker container rm 52727d8e905de5943092e3551e944b6e967b7193a882dd316832ae6fe1d2f828
+  846  docker container run -d --name api --network demo_net -p 8081:8080 --user root  michaellihs/myapi:latest
+  847  docker ps
+  848  vi api/Dockerfile 
+  849  docker container exec -it f8a0c5171bd3 /bin/sh
+  850  vi api/Dockerfile 
+  851  docker image build -t michaellihs/myapi:latest api
+  852  docker container run -it --network demo_net -p 8081:8080 --entrypoint "/usr/bin/java -jar /app/app.jar"  michaellihs/myapi:latest
+  853  docker container kill cc4adbf5b71b7aad6c287319986b6e1afba3ee976687d11e9cca2905475de8da
+  854  docker container rm cc4adbf5b71b7aad6c287319986b6e1afba3ee976687d11e9cca2905475de8da
+  855  docker container ps
+  856  docker container kill f8a0c5171bd3
+  857  docker container rm f8a0c5171bd3
+  858  docker container run -d --network demo_net -p 8081:8080 --name api michaellihs/myapi:latest
+  859  docker container exec -it d9dad045e8f58d800691d297fe57b8b7ba3e921ccf60b9348de99394bd9dca17 /bin/sh
+  860  vi api/Dockerfile 
+  861  vi docker-compose.yml 
+  862  cd ui
+  863  cd ui
+  864  ls -la
+  865  vi Dockerfile
+  866  docker image build -t michaellihs/myfrontend:latest .
+  867  vi Dockerfile 
+  868  docker image build -t michaellihs/myfrontend:latest .
+  869  docker run -rm -it node:carbon /bin/bash
+  870  docker run --rm -it node:carbon /bin/bash
+  871  vi Dockerfile 
+  872  docker image build -t michaellihs/myfrontend:latest .
+  873  docker container run  -d michaellihs/myfrontend:latest
+  874  docker container ps
+  875  docker container exec -it 5a63b57d3a6d /bin/sh
+  876  cd ..
+  877  vi docker-compose.yml 
+  878  docker ps
+  879  docker container stop 5a63b57d3a6d d9dad045e8f5 892f31afe8d0
+  880  cd ..
+  881  ls
+  882  vi README.md 
+  883  docker-compose up -c docker-compose.yml 
+  884  docker-compose up -c docker-compose.yml 
+  885  docker-compose up
+  886  docker-compose up -c docker-compose.yml 
+  887  docker-compose up -c docker-compose.yml 
+  888  docker-compose up -c=docker-compose.yml
+  889  docker-compose up -d
+  890  curl localhost:3000
+  891  curl localhost:3000
+  892  curl localhost:3000
+  893  curl localhost:3000
+  894  curl localhost:3000
+  895  curl localhost:3000
+  896  docker-compose status
+  897  docker-compose ps
+  898  vi docker-compose.yml 
+  899  cd ..
+  900  cd ..
+  901  git status
+  902  git status -h
+  903  git status -v
+  904  git status -u=all
+  905  git status -untracked-files=all
+  906  git status --untracked-files=all
+  907  cd exercise-25
+  908  ls -la
+  909  cd fundamentals-final/
+  910  vi README.md 
+  911  cd ..
+  912  cd ..
+  913  git add .
+  914  git commit -m "exercise 25"
+  915  git pull -r origin master
+  916  git push origin master
+  917  cd workspace/
+  918  history > history.txt
