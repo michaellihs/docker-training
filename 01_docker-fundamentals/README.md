@@ -564,9 +564,22 @@ Tools
 * [brctl](https://www.thegeekstuff.com/2017/06/brctl-bridge/)
 
 
+hstr
+----
+
+Install on Ubuntu - see https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#ubuntu
+
+    sudo add-apt-repository ppa:ultradvorka/ppa
+    sudo apt-get update
+    sudo apt-get install hh
+    hh --show-configuration >> ~/.bashrc
+    source ~/.bashrc
+
+
 Resources
 =========
 
+* [Linux Cheat Sheet](https://www.cheatography.com/davechild/cheat-sheets/linux-command-line/)
 * [Go text/template package](https://golang.org/pkg/text/template/)
 * [Container Tutorial](https://github.com/jpetazzo/container.training)
 * [Code Golf](https://codegolf.stackexchange.com/questions)
@@ -576,4 +589,4 @@ Resources
 * [Docker Compose Reference](https://docs.docker.com/compose/compose-file/)
 * [BORG & Kubernetes](https://kubernetes.io/blog/2015/04/borg-predecessor-to-kubernetes/)
 * [Managing config with Docker](https://docs.docker.com/engine/swarm/configs/)
-
+* [Docker Swarm Ports](https://gist.github.com/BretFisher/7233b7ecf14bc49eb47715bbeb2a2769)
