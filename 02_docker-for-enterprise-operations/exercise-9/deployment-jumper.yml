@@ -1,0 +1,20 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: jumper-deployment
+  namespace: frontend
+  labels:
+    app: jumper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jumper
+  template:
+    metadata:
+      labels:
+        app: jumper
+    spec:
+      containers:
+      - name: jumper
+        image: nginx:alpine
