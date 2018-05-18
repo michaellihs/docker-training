@@ -54,3 +54,12 @@ see
 
 * https://blog.newrelic.com/2016/08/24/docker-health-check-instruction/
 * https://github.com/gitlabhq/omnibus-gitlab/blob/master/docker/Dockerfile#L43
+
+
+Minio with Docker
+=================
+
+Docker compose file for Minio
+-----------------------------
+
+See http://bit.ly/2DmDvxq for a Docker Compose file for Minio.
