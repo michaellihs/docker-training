@@ -47,6 +47,8 @@ Tools
 * [httping](https://www.vanheusden.com/httping/)
 * [brctl](https://www.thegeekstuff.com/2017/06/brctl-bridge/)
 * [cssh for Mac](http://brewformulas.org/Csshx)
+* [ELK config for Docker](https://github.com/docker-training/elk-dee)
+* [Suse Portus - Frontend for Docker registry](http://port.us.org/)
 
 
 hstr
