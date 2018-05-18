@@ -4,7 +4,7 @@ DTR_FQDN=bos247
 UCP_IP=206.189.54.85
 
 docker run -it --rm docker/dtr:2.5.0 install \
-  --ucp-node ucp-manager-0 \
+  --ucp-node bos247 \
   --ucp-username admin \
   --ucp-password adminadmin \
   --ucp-url https://${UCP_IP} \
