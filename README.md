@@ -7,6 +7,14 @@ Transcript of Docker Fundamentals and Docker Enterprise Operations training 2018
 * [Second Part: Docker for Enterprise Operations](02_docker-for-enterprise-operations/README.md)
 
 
+[TOC levels=1-3]: # " "
+
+- [Docker Training - 2018-05-15](#docker-training---2018-05-15)
+    - [SSH Configuration for Training Hosts](#ssh-configuration-for-training-hosts)
+- [Tools](#tools)
+    - [hstr](#hstr)
+
+
 SSH Configuration for Training Hosts
 ------------------------------------
 
@@ -30,3 +38,24 @@ Copy your public ssh key to the machines using
 Afterwards, you can login to the machines using
 
     ssh bosXXX
+
+
+Tools
+=====
+
+* [hstr `hh`](https://github.com/dvorka/hstr)
+* [httping](https://www.vanheusden.com/httping/)
+* [brctl](https://www.thegeekstuff.com/2017/06/brctl-bridge/)
+* [cssh for Mac](http://brewformulas.org/Csshx)
+
+
+hstr
+----
+
+Install on Ubuntu - see https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#ubuntu
+
+    sudo add-apt-repository ppa:ultradvorka/ppa
+    sudo apt-get update
+    sudo apt-get install hh
+    hh --show-configuration >> ~/.bashrc
+    source ~/.bashrc

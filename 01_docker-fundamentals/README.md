@@ -43,10 +43,7 @@ Docker Fundamentals Training - 15.5.2018
     - [`kubectl`](#kubectl)
     - [`docker secret`](#docker-secret)
     - [`docker system`](#docker-system)
-- [Tools](#tools)
 - [Resources](#resources)
-
-
 
 
 Training Concepts
@@ -554,26 +551,6 @@ Docker Commands Cheat Sheet
 * `df` how much memory does Docker use
 * `prune` reclaim all reclaimable space
 * `events` start observing events in Docker
-
-
-Tools
-=====
-
-* [hstr `hh`](https://github.com/dvorka/hstr)
-* [httping](https://www.vanheusden.com/httping/)
-* [brctl](https://www.thegeekstuff.com/2017/06/brctl-bridge/)
-
-
-hstr
-----
-
-Install on Ubuntu - see https://github.com/dvorka/hstr/blob/master/INSTALLATION.md#ubuntu
-
-    sudo add-apt-repository ppa:ultradvorka/ppa
-    sudo apt-get update
-    sudo apt-get install hh
-    hh --show-configuration >> ~/.bashrc
-    source ~/.bashrc
 
 
 Resources
