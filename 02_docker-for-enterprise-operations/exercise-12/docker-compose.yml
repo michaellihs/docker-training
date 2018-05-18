@@ -1,0 +1,73 @@
+version: '3.3'
+
+services:
+  minio1:
+    image: training/minio:demo
+    volumes:
+      - minio1-data:/export
+    ports:
+      - "9001:9000"
+    networks:
+      - minio_distributed
+    command: server http://minio1/export http://minio2/export http://minio3/export http://minio4/export
+    secrets:
+      - secret_key
+      - access_key
+
+  minio2:
+    image: training/minio:demo
+    volumes:
+      - minio2-data:/export
+    ports:
+      - "9002:9000"
+    networks:
+      - minio_distributed
+    command: server http://minio1/export http://minio2/export http://minio3/export http://minio4/export
+    secrets:
+      - secret_key
+      - access_key
+
+  minio3:
+    image: training/minio:demo
+    volumes:
+      - minio3-data:/export
+    ports:
+      - "9003:9000"
+    networks:
+      - minio_distributed
+    command: server http://minio1/export http://minio2/export http://minio3/export http://minio4/export
+    secrets:
+      - secret_key
+      - access_key
+
+  minio4:
+    image: training/minio:demo
+    volumes:
+      - minio4-data:/export
+    ports:
+      - "9004:9000"
+    networks:
+      - minio_distributed
+    command: server http://minio1/export http://minio2/export http://minio3/export http://minio4/export
+    secrets:
+      - secret_key
+      - access_key
+
+volumes:
+  minio1-data:
+
+  minio2-data:
+
+  minio3-data:
+
+  minio4-data:
+
+networks:
+  minio_distributed:
+    driver: overlay
+
+secrets:
+  secret_key:
+    external: true
+  access_key:
+    external: true
