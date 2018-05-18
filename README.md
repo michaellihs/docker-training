@@ -40,6 +40,15 @@ Afterwards, you can login to the machines using
     ssh bosXXX
 
 
+`/etc/host` configuration
+-------------------------
+
+For some applications it might be helpful to set hostnames and IP addresses of the training servers in your `/etc/hosts` file
+
+    206.189.54.85 bos247
+    ...
+
+
 Tools
 =====
 
